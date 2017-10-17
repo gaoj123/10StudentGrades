@@ -20,6 +20,11 @@ def getGrades(id):
       grades.append(grade[0])
    return grades
 
+# Adds a record into the course table of all grades
+def addGradeFor(id, course, grade):
+   c.execute('INSERT INTO courses VALUES ("%s", %s, %s);' % (course, grade, id))
+   db.commit()
+
 createGradebook()
 print getGrades(1)
 
