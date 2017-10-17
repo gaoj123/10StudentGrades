@@ -1,0 +1,9 @@
+getGrades(id) -> list of grades as numbers
+computeAverage(id) -> average
+	uses get grades
+listStudents() -> list of dictionaries
+	for each student in peeps table, compute their average and then put it in a dictionary
+storeAverages()
+	go through each student in peeps database and then compute their average using previously defined methods
+addGrade(course, student, grade)
+	adds a row to the courses table
