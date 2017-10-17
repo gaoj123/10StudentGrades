@@ -6,13 +6,15 @@ db=sqlite3.connect(f)
 c=db.cursor()
 
 def getGrades(id):
+   temp=[]
    c.execute("SELECT * FROM classes WHERE id = "+str(id)+";")
    for row in c:
-       print row
+       temp.append(row[1])
+   return temp
     
 ##command=""
 ##c.execute(command)
-getGrades(1)
+print(getGrades(1))
 
 db.commit()
 db.close()
