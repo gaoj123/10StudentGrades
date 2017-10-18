@@ -24,10 +24,12 @@ def getGrades(id):
 def computeAverageFor(id):
    grades=getGrades(id)
    sum=0.0;
-   gradeAverage=0;
+   gradeAverage=0.0;
    for grade in grades:
       sum+=grade
-   gradeAverage = float(sum) / len(grades)
+   print("sum: "+str(sum))
+   gradeAverage= float(sum) / len(grades)
+   print("avg "+str(gradeAverage))
    return gradeAverage
       
 #Returns a list of dictionaries, one for each student. Each dictionary has a student's name, id, and average under those keys.
@@ -45,7 +47,6 @@ def getAllAverages():
     #for element in toReturn:
         #for key in element:
             #print key, element[key]
-   
 
 # Adds a record into the course table of all grades
 def addGradeFor(id, course, grade):
