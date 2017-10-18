@@ -47,7 +47,7 @@ def getAllAverages():
             print(computeAverageFor(id))
             dictToAdd["average"]=float(computeAverageFor(id))
             toReturn.append(dictToAdd)
-   return toReturn
+    return toReturn
 
 # Adds a record into the course table of all grades
 def addGradeFor(id, course, grade):
@@ -56,9 +56,10 @@ def addGradeFor(id, course, grade):
 
 #Updates averages in the db table "peeps_avg"
 def updateAverages():
-   #
+   #placeholder
+   return 0
 
-   
+
 createGradebook()
 print getGrades(1)
 print computeAverageFor(1)
