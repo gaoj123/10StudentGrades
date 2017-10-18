@@ -67,13 +67,16 @@ def addGradeFor(id, course, grade):
 #Updates averages in the db table "peeps_avg"
 def updateAverages():
     records = getAllAverages()
+    print records[-1]
     for student in records:
         if existsInTable("peeps_avg", student["id"]):
             c.execute("UPDATE peeps_avg SET average = %s;" % (student["average"],))
         else:
             c.execute("INSERT INTO peeps_avg VALUES (%d, %s);" % (student["id"], student["average"]))
+        db.commit()
     return 0
 
+# Returns True if a student with this ID exists in the given table, false otherwise
 def existsInTable(table, id):
     id = str(id)
     c.execute("SELECT * FROM %s WHERE id = %s;" % (table, id))
@@ -85,6 +88,7 @@ def existsInTable(table, id):
 createGradebook()
 print getGrades(1)
 print computeAverageFor(1)
+addGradeFor(10, "wpt", 90)
 updateAverages()
 db.commit()
 db.close()
