@@ -20,6 +20,18 @@ def getGrades(id):
       grades.append(grade[0])
    return grades
 
+#Compute average using grades obtained from the list returned in getGrades()
+def computeAverage(id):
+   grades=getGrades(id)
+   sum=0.0;
+   gradeAverage=0;
+   for grade in grades:
+      sum+=grade
+   gradeAverage=sum/len(grades)
+   return gradeAverage
+      
+   
+
 # Adds a record into the course table of all grades
 def addGradeFor(id, course, grade):
    c.execute('INSERT INTO courses VALUES ("%s", %s, %s);' % (course, grade, id))
@@ -27,6 +39,6 @@ def addGradeFor(id, course, grade):
 
 createGradebook()
 print getGrades(1)
-
+print computeAverage(1)
 db.commit()
 db.close()
