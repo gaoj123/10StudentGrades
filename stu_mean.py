@@ -10,6 +10,9 @@ c = db.cursor()
 def createGradebook():
    db_builder.insertCSV(c)
    c.execute("CREATE TABLE peeps_avg (id INTEGER, average REAL);")
+   listGrades=getAllAverages() #list of dictionaries
+   for dict in listGrades:
+      c.execute("INSERT INTO peeps_avg VALUES(%s, %s)"%(dict["id"],dict["average"]))
    db.commit()
 
 # Returns a list of grades for a student
@@ -34,25 +37,28 @@ def computeAverageFor(id):
       
 #Returns a list of dictionaries, one for each student. Each dictionary has a student's name, id, and average under those keys.
 def getAllAverages():
-    students = []
-    c.execute("SELECT id, name FROM peeps;")
-    for row in c:
-        print(row)
-        dictToAdd={}
-        dictToAdd["id"] = row[0]
-        dictToAdd["name"]=row[1]
-        dictToAdd["average"]=computeAverageFor(int(row[0]))
-        students.append(dictToAdd)
-    return students
-    #for element in toReturn:
-        #for key in element:
-            #print key, element[key]
+    toReturn=[]
+    for id in range(1,11):
+        c.execute("SELECT name FROM peeps WHERE id="+str(id)+";")
+        for row in c:
+            dictToAdd={}
+            dictToAdd["name"]=row[0]
+            dictToAdd["id"]=id
+            print(computeAverageFor(id))
+            dictToAdd["average"]=float(computeAverageFor(id))
+            toReturn.append(dictToAdd)
+   return toReturn
 
 # Adds a record into the course table of all grades
 def addGradeFor(id, course, grade):
    c.execute('INSERT INTO courses VALUES ("%s", %s, %s);' % (course, grade, id))
    db.commit()
 
+#Updates averages in the db table "peeps_avg"
+def updateAverages():
+   #
+
+   
 createGradebook()
 print getGrades(1)
 print computeAverageFor(1)
