@@ -27,23 +27,24 @@ def computeAverageFor(id):
    gradeAverage=0;
    for grade in grades:
       sum+=grade
-   gradeAverage=sum/len(grades)
+   gradeAverage = float(sum) / len(grades)
    return gradeAverage
       
 #Returns a list of dictionaries, one for each student. Each dictionary has a student's name, id, and average under those keys.
 def getAllAverages():
-   toReturn=[]
-   c.execute("SELECT * FROM peeps"+";")
-   for row in c:
-      print(row)
-      dictToAdd={}
-      dictToAdd["name"]=row[1]
-      dictToAdd["id"]=row[0]
-      dictToAdd["average"]=computeAverageFor(int(row[0]))
-      toReturn.append(dictToAdd)
-   #for element in toReturn:
-      #for key in element:
-         #print key, element[key]
+    students = []
+    c.execute("SELECT id, name FROM peeps;")
+    for row in c:
+        print(row)
+        dictToAdd={}
+        dictToAdd["id"] = row[0]
+        dictToAdd["name"]=row[1]
+        dictToAdd["average"]=computeAverageFor(int(row[0]))
+        students.append(dictToAdd)
+    return students
+    #for element in toReturn:
+        #for key in element:
+            #print key, element[key]
    
 
 # Adds a record into the course table of all grades
@@ -54,6 +55,6 @@ def addGradeFor(id, course, grade):
 createGradebook()
 print getGrades(1)
 print computeAverageFor(1)
-getAllAverages()
+print getAllAverages()
 db.commit()
 db.close()
